@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital@0;1&display=swap');
+
+:root {
+  --gold: #C9A24B;
+  --gold-light: #E8D6A0;
+  --parchment: #F3E7CE;
+  --dark: #241A12;
+  --maroon: #4A1E1E;
+  --brown: #8A6A2A;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'EB Garamond', serif;
+  background: radial-gradient(circle at top, #2A2118, var(--dark));
+  color: var(--parchment);
+  min-height: 100vh;
+}
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  border-bottom: 2px solid var(--gold);
+  background: rgba(0,0,0,0.3);
+  flex-wrap: wrap;
+}
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo span {
+  font-family: 'Cinzel', serif;
+  font-size: 22px;
+  color: var(--gold-light);
+}
+nav a {
+  color: var(--gold-light);
+  text-decoration: none;
+  margin: 0 12px;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+}
+nav a:hover { color: #fff; }
+
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 30px;
+}
+h1.page-title {
+  font-family: 'Cinzel', serif;
+  color: var(--gold-light);
+  font-size: 26px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Trang chủ - 2 khiên chọn cấp độ */
+.shield-wrap {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+.shield {
+  width: 220px;
+  height: 260px;
+  background: linear-gradient(160deg, var(--parchment), var(--gold-light));
+  clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--maroon);
+  border: 3px solid var(--gold);
+  transition: transform 0.2s;
+}
+.shield:hover { transform: translateY(-8px); }
+.shield h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.shield p { font-size: 14px; text-align: center; padding: 0 20px; }
+
+/* Hub trang cấp độ - lưới 6 kỹ năng */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 22px;
+}
+.card {
+  background: var(--parchment);
+  color: var(--dark);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 26px;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+  transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-4px); }
+.card h3 {
+  font-family: 'Cinzel', serif;
+  color: var(--maroon);
+  margin-bottom: 8px;
+}
+.card p { font-size: 14px; color: #4A3B28; }
+
+/* Trang chi tiết kỹ năng */
+.section-block {
+  background: var(--parchment);
+  color: var(--dark);
+  border: 2px solid var(--gold);
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.section-block h2 {
+  font-family: 'Cinzel', serif;
+  color: var(--maroon);
+  margin-bottom: 14px;
+  font-size: 20px;
+}
+.section-block ul { padding-left: 20px; line-height: 1.9; }
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--gold-light);
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+}
+.video-placeholder {
+  background: #000;
+  color: var(--gold-light);
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+}
