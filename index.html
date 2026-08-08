@@ -4,187 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Học Viện Anh Ngữ Diệu Kỳ</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital@0;1&display=swap');
-
-  :root {
-    --gold: #C9A24B;
-    --gold-light: #E8D6A0;
-    --parchment: #F3E7CE;
-    --dark: #241A12;
-    --maroon: #4A1E1E;
-    --forest: #1F3A2E;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'EB Garamond', serif;
-    background: radial-gradient(circle at top, #2A2118, var(--dark));
-    color: var(--parchment);
-    min-height: 100vh;
-  }
-  header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 40px;
-    border-bottom: 2px solid var(--gold);
-    background: rgba(0,0,0,0.3);
-    flex-wrap: wrap;
-  }
-  .logo { display: flex; align-items: center; gap: 12px; }
-  .logo span {
-    font-family: 'Cinzel', serif;
-    font-size: 24px;
-    color: var(--gold-light);
-    letter-spacing: 1px;
-  }
-  nav a {
-    color: var(--gold-light);
-    text-decoration: none;
-    margin: 0 14px;
-    font-family: 'Cinzel', serif;
-    font-size: 14px;
-    letter-spacing: 1px;
-    transition: color 0.2s;
-  }
-  nav a:hover { color: #fff; }
-
-  .hero {
-    max-width: 1000px;
-    margin: 50px auto;
-    padding: 50px 40px;
-    background: var(--parchment);
-    color: var(--dark);
-    border-radius: 6px;
-    border: 3px solid var(--gold);
-    box-shadow: 0 0 40px rgba(201,162,75,0.25);
-    display: flex;
-    align-items: center;
-    gap: 30px;
-    flex-wrap: wrap;
-  }
-  .hero-text { flex: 1; min-width: 260px; }
-  .hero-text h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
-    color: var(--maroon);
-    margin-bottom: 14px;
-  }
-  .hero-text p {
-    font-size: 18px;
-    font-style: italic;
-    line-height: 1.6;
-  }
-  .scroll {
-    margin-top: 18px;
-    padding: 12px 18px;
-    border-left: 4px solid var(--gold);
-    background: rgba(201,162,75,0.1);
-    font-style: italic;
-  }
-
-  .cards {
-    max-width: 1000px;
-    margin: 0 auto 60px;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 22px;
-  }
-  .card {
-    background: var(--parchment);
-    color: var(--dark);
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    padding: 24px;
-    text-align: center;
-    transition: transform 0.2s;
-  }
-  .card:hover { transform: translateY(-4px); }
-  .card h3 {
-    font-family: 'Cinzel', serif;
-    color: var(--maroon);
-    margin-bottom: 10px;
-    font-size: 17px;
-  }
-  .card p { font-size: 14px; color: #4A3B28; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header>
   <div class="logo">
-    <svg width="42" height="42" viewBox="0 0 100 100">
-      <ellipse cx="50" cy="68" rx="28" ry="20" fill="#C9A24B"/>
-      <ellipse cx="32" cy="42" rx="15" ry="13" fill="#C9A24B"/>
-      <circle cx="27" cy="38" r="2.5" fill="#241A12"/>
-      <path d="M58 55 Q80 45 85 58 Q75 63 58 60 Z" fill="#4A1E1E"/>
-      <path d="M20 70 L10 55 M20 70 L8 68" stroke="#8A6A2A" stroke-width="3" fill="none"/>
+    <svg width="40" height="40" viewBox="0 0 200 200">
+      <ellipse cx="55" cy="120" rx="26" ry="38" fill="#8A6A2A" transform="rotate(-15 55 120)"/>
+      <ellipse cx="145" cy="120" rx="26" ry="38" fill="#8A6A2A" transform="rotate(15 145 120)"/>
+      <ellipse cx="100" cy="125" rx="42" ry="48" fill="#C9A24B"/>
+      <circle cx="100" cy="75" r="36" fill="#C9A24B"/>
+      <path d="M72 48 L65 26 L82 40 Z" fill="#8A6A2A"/>
+      <path d="M128 48 L135 26 L118 40 Z" fill="#8A6A2A"/>
+      <circle cx="84" cy="72" r="13" fill="#fff"/>
+      <circle cx="116" cy="72" r="13" fill="#fff"/>
+      <circle cx="84" cy="72" r="6" fill="#241A12"/>
+      <circle cx="116" cy="72" r="6" fill="#241A12"/>
+      <path d="M100 80 L94 92 L106 92 Z" fill="#E8963C"/>
+      <path d="M82 42 L100 10 L118 42 Z" fill="#4A1E1E"/>
     </svg>
     <span>Học Viện Anh Ngữ Diệu Kỳ</span>
   </div>
   <nav>
     <a href="index.html">Trang chủ</a>
-    <a href="vocabulary.html">Từ vựng</a>
-    <a href="grammar.html">Ngữ pháp</a>
   </nav>
 </header>
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>Chào mừng phù thủy nhỏ đến với hành trình chinh phục tiếng Anh!</h1>
-    <p>Mỗi từ vựng là một câu thần chú, mỗi cấu trúc ngữ pháp là một bí kíp giúp bạn tiến bộ mỗi ngày.</p>
-    <div class="scroll">"Kiến thức là phép thuật mạnh nhất mà không ai có thể lấy đi khỏi bạn."</div>
+<div class="container">
+  <h1 class="page-title">Chọn hành trình luyện thi của bạn</h1>
+  <div class="shield-wrap">
+    <a href="c1.html" class="shield">
+      <h2>C1</h2>
+      <p>Luyện thi chứng chỉ C1 với đủ 4 kỹ năng và đề thi thực chiến.</p>
+    </a>
+    <a href="ielts.html" class="shield">
+      <h2>IELTS</h2>
+      <p>Chinh phục IELTS với video bài giảng và tài liệu chọn lọc.</p>
+    </a>
   </div>
-  <svg width="170" height="170" viewBox="0 0 200 200">
-    <!-- Cánh sau -->
-    <ellipse cx="55" cy="120" rx="30" ry="45" fill="#8A6A2A" transform="rotate(-15 55 120)"/>
-    <ellipse cx="145" cy="120" rx="30" ry="45" fill="#8A6A2A" transform="rotate(15 145 120)"/>
-    <!-- Thân -->
-    <ellipse cx="100" cy="125" rx="48" ry="55" fill="#C9A24B"/>
-    <ellipse cx="100" cy="140" rx="30" ry="35" fill="#F3E7CE"/>
-    <!-- Đầu -->
-    <circle cx="100" cy="75" r="42" fill="#C9A24B"/>
-    <!-- Tai lông -->
-    <path d="M70 45 L62 20 L82 38 Z" fill="#8A6A2A"/>
-    <path d="M130 45 L138 20 L118 38 Z" fill="#8A6A2A"/>
-    <!-- Mắt -->
-    <circle cx="82" cy="72" r="16" fill="#fff"/>
-    <circle cx="118" cy="72" r="16" fill="#fff"/>
-    <circle cx="82" cy="72" r="8" fill="#241A12"/>
-    <circle cx="118" cy="72" r="8" fill="#241A12"/>
-    <circle cx="85" cy="68" r="2.5" fill="#fff"/>
-    <circle cx="121" cy="68" r="2.5" fill="#fff"/>
-    <!-- Mỏ -->
-    <path d="M100 82 L92 96 L108 96 Z" fill="#E8963C"/>
-    <!-- Chân -->
-    <path d="M85 178 L85 190 M80 190 L90 190" stroke="#E8963C" stroke-width="4" stroke-linecap="round"/>
-    <path d="M115 178 L115 190 M110 190 L120 190" stroke="#E8963C" stroke-width="4" stroke-linecap="round"/>
-    <!-- Mũ phù thủy nhỏ -->
-    <path d="M80 40 L100 5 L120 40 Z" fill="#4A1E1E"/>
-    <ellipse cx="100" cy="40" rx="26" ry="6" fill="#4A1E1E"/>
-    <circle cx="100" cy="8" r="4" fill="#C9A24B"/>
-  </svg>
-</section>
-
-<section class="cards">
-  <div class="card">
-    <h3>📜 Từ vựng</h3>
-    <p>Ghi nhớ những "câu thần chú" tiếng Anh mỗi ngày.</p>
-  </div>
-  <div class="card">
-    <h3>🕯️ Ngữ pháp</h3>
-    <p>Bí kíp xây dựng câu chính xác và tự tin.</p>
-  </div>
-  <div class="card">
-    <h3>🦉 Luyện nghe</h3>
-    <p>Sắp ra mắt — lắng nghe và cảm nhận tiếng Anh tự nhiên.</p>
-  </div>
-  <div class="card">
-    <h3>✨ Luyện nói</h3>
-    <p>Sắp ra mắt — cất lời như một pháp sư tự tin.</p>
-  </div>
-</section>
+</div>
 
 </body>
 </html>
