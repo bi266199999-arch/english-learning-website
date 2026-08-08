@@ -3,97 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Anh Ngữ Vui - Học Tiếng Anh Cùng Nhau</title>
+<title>Học Viện Anh Ngữ Diệu Kỳ</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=EB+Garamond:ital@0;1&display=swap');
+
   :root {
-    --brown-dark: #6B4423;
-    --brown-mid: #8B5E3C;
-    --yellow: #F4B740;
-    --yellow-light: #FDE9B8;
-    --bg: #FFF9EF;
-    --text: #4A3423;
+    --gold: #C9A24B;
+    --gold-light: #E8D6A0;
+    --parchment: #F3E7CE;
+    --dark: #241A12;
+    --maroon: #4A1E1E;
+    --forest: #1F3A2E;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'EB Garamond', serif;
+    background: radial-gradient(circle at top, #2A2118, var(--dark));
+    color: var(--parchment);
+    min-height: 100vh;
   }
   header {
-    background: var(--brown-dark);
-    padding: 14px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 2px solid var(--gold);
+    background: rgba(0,0,0,0.3);
     flex-wrap: wrap;
   }
-  .logo { display: flex; align-items: center; gap: 10px; }
-  .logo span { color: var(--yellow-light); font-size: 22px; font-weight: bold; }
+  .logo { display: flex; align-items: center; gap: 12px; }
+  .logo span {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+  }
   nav a {
-    color: var(--yellow-light);
+    color: var(--gold-light);
     text-decoration: none;
-    margin: 0 12px;
-    font-weight: 600;
+    margin: 0 14px;
+    font-family: 'Cinzel', serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: color 0.2s;
   }
-  nav a:hover { color: var(--yellow); }
+  nav a:hover { color: #fff; }
+
   .hero {
-    max-width: 1100px;
-    margin: 40px auto;
-    background: var(--yellow-light);
-    border-radius: 20px;
-    padding: 40px;
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 50px 40px;
+    background: var(--parchment);
+    color: var(--dark);
+    border-radius: 6px;
+    border: 3px solid var(--gold);
+    box-shadow: 0 0 40px rgba(201,162,75,0.25);
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 30px;
     flex-wrap: wrap;
-    gap: 20px;
   }
+  .hero-text { flex: 1; min-width: 260px; }
   .hero-text h1 {
-    color: var(--brown-dark);
-    font-size: 32px;
-    margin-bottom: 10px;
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    color: var(--maroon);
+    margin-bottom: 14px;
   }
-  .hero-text p { color: var(--brown-mid); font-size: 16px; }
-  .bubble {
-    background: white;
-    border: 2px solid var(--yellow);
-    border-radius: 14px;
+  .hero-text p {
+    font-size: 18px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .scroll {
+    margin-top: 18px;
     padding: 12px 18px;
-    margin-top: 16px;
-    display: inline-block;
-    font-weight: 600;
-    color: var(--brown-dark);
+    border-left: 4px solid var(--gold);
+    background: rgba(201,162,75,0.1);
+    font-style: italic;
   }
+
   .cards {
-    max-width: 1100px;
-    margin: 0 auto 50px;
-    padding: 0 30px;
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 40px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 22px;
   }
   .card {
-    background: white;
-    border: 1px solid var(--yellow);
-    border-radius: 16px;
-    padding: 22px;
+    background: var(--parchment);
+    color: var(--dark);
+    border: 2px solid var(--gold);
+    border-radius: 8px;
+    padding: 24px;
     text-align: center;
+    transition: transform 0.2s;
   }
-  .card h3 { color: var(--brown-dark); margin-bottom: 8px; }
-  .card p { color: var(--brown-mid); font-size: 14px; }
+  .card:hover { transform: translateY(-4px); }
+  .card h3 {
+    font-family: 'Cinzel', serif;
+    color: var(--maroon);
+    margin-bottom: 10px;
+    font-size: 17px;
+  }
+  .card p { font-size: 14px; color: #4A3B28; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="logo">
-    <svg width="40" height="40" viewBox="0 0 100 100">
-      <ellipse cx="50" cy="65" rx="30" ry="22" fill="#A9825C"/>
-      <ellipse cx="30" cy="40" rx="16" ry="14" fill="#A9825C"/>
-      <circle cx="24" cy="35" r="3" fill="#3A2A1A"/>
-      <path d="M60 55 Q85 45 90 60 Q80 65 60 60 Z" fill="#F4B740"/>
+    <svg width="42" height="42" viewBox="0 0 100 100">
+      <ellipse cx="50" cy="68" rx="28" ry="20" fill="#C9A24B"/>
+      <ellipse cx="32" cy="42" rx="15" ry="13" fill="#C9A24B"/>
+      <circle cx="27" cy="38" r="2.5" fill="#241A12"/>
+      <path d="M58 55 Q80 45 85 58 Q75 63 58 60 Z" fill="#4A1E1E"/>
+      <path d="M20 70 L10 55 M20 70 L8 68" stroke="#8A6A2A" stroke-width="3" fill="none"/>
     </svg>
-    <span>Anh Ngữ Vui</span>
+    <span>Học Viện Anh Ngữ Diệu Kỳ</span>
   </div>
   <nav>
     <a href="index.html">Trang chủ</a>
@@ -104,38 +132,40 @@
 
 <section class="hero">
   <div class="hero-text">
-    <h1>Chào mừng bạn đến với Anh Ngữ Vui!</h1>
-    <p>Học từ vựng, ngữ pháp và giao tiếp tiếng Anh mỗi ngày một cách vui vẻ.</p>
-    <div class="bubble">"Học tiếng Anh không khó, chỉ cần bạn kiên trì mỗi ngày!"</div>
+    <h1>Chào mừng phù thủy nhỏ đến với hành trình chinh phục tiếng Anh!</h1>
+    <p>Mỗi từ vựng là một câu thần chú, mỗi cấu trúc ngữ pháp là một bí kíp giúp bạn tiến bộ mỗi ngày.</p>
+    <div class="scroll">"Kiến thức là phép thuật mạnh nhất mà không ai có thể lấy đi khỏi bạn."</div>
   </div>
-  <svg width="180" height="180" viewBox="0 0 200 200">
-    <ellipse cx="100" cy="140" rx="55" ry="40" fill="#A9825C"/>
-    <ellipse cx="100" cy="145" rx="35" ry="25" fill="#F3DFC1"/>
-    <ellipse cx="60" cy="80" rx="30" ry="26" fill="#A9825C"/>
-    <ellipse cx="52" cy="72" rx="4" ry="5" fill="#3A2A1A"/>
-    <path d="M155 100 Q195 85 195 115 Q175 125 150 115 Z" fill="#F4B740"/>
-    <rect x="70" y="150" width="25" height="30" rx="6" fill="#8B5E3C"/>
-    <rect x="105" y="150" width="25" height="30" rx="6" fill="#8B5E3C"/>
-    <path d="M60 100 Q30 90 25 60 Q45 60 60 85 Z" fill="#F4B740"/>
+  <svg width="170" height="170" viewBox="0 0 200 200">
+    <ellipse cx="100" cy="145" rx="50" ry="35" fill="#C9A24B"/>
+    <ellipse cx="100" cy="148" rx="32" ry="22" fill="#F3E7CE"/>
+    <ellipse cx="62" cy="88" rx="28" ry="24" fill="#C9A24B"/>
+    <circle cx="54" cy="80" r="4" fill="#241A12"/>
+    <path d="M150 108 Q188 92 190 118 Q170 128 145 120 Z" fill="#4A1E1E"/>
+    <rect x="72" y="155" width="22" height="28" rx="5" fill="#4A1E1E"/>
+    <rect x="106" y="155" width="22" height="28" rx="5" fill="#4A1E1E"/>
+    <path d="M60 108 Q28 96 22 68 Q44 68 60 92 Z" fill="#C9A24B"/>
+    <line x1="40" y1="60" x2="20" y2="40" stroke="#8A6A2A" stroke-width="4"/>
+    <circle cx="18" cy="38" r="4" fill="#E8D6A0"/>
   </svg>
 </section>
 
 <section class="cards">
   <div class="card">
-    <h3>📖 Từ vựng</h3>
-    <p>Học từ mới mỗi ngày theo chủ đề gần gũi.</p>
+    <h3>📜 Từ vựng</h3>
+    <p>Ghi nhớ những "câu thần chú" tiếng Anh mỗi ngày.</p>
   </div>
   <div class="card">
-    <h3>📝 Ngữ pháp</h3>
-    <p>Nắm chắc cấu trúc câu cơ bản đến nâng cao.</p>
+    <h3>🕯️ Ngữ pháp</h3>
+    <p>Bí kíp xây dựng câu chính xác và tự tin.</p>
   </div>
   <div class="card">
-    <h3>🎧 Luyện nghe</h3>
-    <p>Sắp ra mắt - nghe và hiểu tiếng Anh tự nhiên.</p>
+    <h3>🦉 Luyện nghe</h3>
+    <p>Sắp ra mắt — lắng nghe và cảm nhận tiếng Anh tự nhiên.</p>
   </div>
   <div class="card">
-    <h3>🗣️ Luyện nói</h3>
-    <p>Sắp ra mắt - tự tin giao tiếp mỗi ngày.</p>
+    <h3>✨ Luyện nói</h3>
+    <p>Sắp ra mắt — cất lời như một pháp sư tự tin.</p>
   </div>
 </section>
 
