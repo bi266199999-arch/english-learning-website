@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Language Learning World Map</title>
+    <title>3D Language Learning Map</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -30,10 +30,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
-        /* Khung hiển thị bản đồ 3D */
         .map-wrapper {
             position: relative;
             width: 100%;
@@ -53,7 +52,6 @@
             user-select: none;
         }
 
-        /* Điểm tương tác (Hotspots) đè chính xác lên từng tòa nhà */
         .hotspot {
             position: absolute;
             transform: translate(-50%, -50%);
@@ -62,7 +60,6 @@
             transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Vòng tròn nhấp nháy phát sáng */
         .hotspot-pulse {
             position: absolute;
             width: 70px;
@@ -87,7 +84,7 @@
             background: rgba(20, 15, 35, 0.85);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 215, 0, 0.5);
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: 30px;
             display: flex;
             align-items: center;
@@ -96,23 +93,9 @@
             transition: all 0.3s ease;
         }
 
-        .hotspot-card .icon {
-            font-size: 20px;
-        }
-
-        .hotspot-card .label {
-            font-size: 13px;
-            font-weight: 800;
-            color: #fff;
-            letter-spacing: 0.5px;
-            white-space: nowrap;
-        }
-
-        .hotspot-card .sub-label {
-            font-size: 11px;
-            color: #fbbf24;
-            font-weight: 600;
-        }
+        .hotspot-card .icon { font-size: 18px; }
+        .hotspot-card .label { font-size: 13px; font-weight: 800; color: #fff; white-space: nowrap; }
+        .hotspot-card .sub-label { font-size: 11px; color: #fbbf24; font-weight: 600; }
 
         .hotspot:hover {
             transform: translate(-50%, -58%) scale(1.08);
@@ -125,14 +108,13 @@
             box-shadow: 0 12px 30px rgba(0,0,0,0.7), 0 0 25px rgba(251, 191, 36, 0.6);
         }
 
-        /* Tọa độ đặt nút bấm đè chính xác lên hình 3D */
+        /* Vị trí chuẩn theo thiết kế 3D */
         #spot-cafe      { top: 28%; left: 26%; }
         #spot-library   { top: 31%; left: 76%; }
         #spot-tearoom   { top: 62%; left: 24%; }
         #spot-workspace { top: 61%; left: 76%; }
         #spot-home      { top: 48%; left: 50%; }
 
-        /* Modal Bảng chọn chủ đề khi click */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -147,10 +129,7 @@
             z-index: 100;
         }
 
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
 
         .modal-content {
             background: #1e192e;
@@ -165,9 +144,7 @@
             box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(251, 191, 36, 0.15);
         }
 
-        .modal-overlay.active .modal-content {
-            transform: translateY(0) scale(1);
-        }
+        .modal-overlay.active .modal-content { transform: translateY(0) scale(1); }
 
         .close-btn {
             position: absolute;
@@ -188,12 +165,7 @@
 
         .close-btn:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
 
-        .modal-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
+        .modal-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
 
         .modal-header .badge-icon {
             width: 52px;
@@ -204,7 +176,6 @@
             align-items: center;
             justify-content: center;
             font-size: 26px;
-            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
         }
 
         .modal-title-text h2 { font-size: 20px; font-weight: 800; color: #fff; }
@@ -251,10 +222,9 @@
 
     <div class="app-container">
         <div class="map-wrapper">
-            <!-- Đổi tên file ảnh đúng với file ảnh bạn tải về -->
-            <img src="image.png" alt="English Learning Map 3D" class="map-image">
+            <!-- Đảm bảo file ảnh nằm cùng thư mục và tên là map.png -->
+            <img src="map.png" alt="English Learning Map 3D" class="map-image">
 
-            <!-- Spot 1: Speaking -->
             <div class="hotspot" id="spot-cafe" onclick="openModal('speaking')">
                 <div class="hotspot-pulse"></div>
                 <div class="hotspot-card">
@@ -266,7 +236,6 @@
                 </div>
             </div>
 
-            <!-- Spot 2: Reading -->
             <div class="hotspot" id="spot-library" onclick="openModal('reading')">
                 <div class="hotspot-pulse"></div>
                 <div class="hotspot-card">
@@ -278,7 +247,6 @@
                 </div>
             </div>
 
-            <!-- Spot 3: Listening -->
             <div class="hotspot" id="spot-tearoom" onclick="openModal('listening')">
                 <div class="hotspot-pulse"></div>
                 <div class="hotspot-card">
@@ -290,7 +258,6 @@
                 </div>
             </div>
 
-            <!-- Spot 4: Writing -->
             <div class="hotspot" id="spot-workspace" onclick="openModal('writing')">
                 <div class="hotspot-pulse"></div>
                 <div class="hotspot-card">
@@ -302,7 +269,6 @@
                 </div>
             </div>
 
-            <!-- Spot 5: Home -->
             <div class="hotspot" id="spot-home" onclick="openModal('home')">
                 <div class="hotspot-pulse" style="border-color:#60a5fa;"></div>
                 <div class="hotspot-card" style="border-color:#60a5fa;">
@@ -313,11 +279,9 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Modal hiển thị danh sách chủ đề -->
     <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOuter(event)">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
@@ -351,7 +315,7 @@
                 topics: [
                     { title: "Short Stories & Novels", detail: "Đọc truyện ngắn thư giãn & học ngữ cảnh", lessons: "12 Bài" },
                     { title: "Tech & Science Articles", detail: "Bài đọc tin tức khoa học & công nghệ", lessons: "8 Bài" },
-                    { title: "IELTS/TOEFL Academic Passages", detail: "Luyện đọc hiểu dạng bài thi", lessons: "10 Bài" }
+                    { title: "IELTS Academic Passages", detail: "Luyện đọc hiểu dạng bài thi", lessons: "10 Bài" }
                 ]
             },
             listening: {
