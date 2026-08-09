@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Language Learning World Map</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background: #110e1b;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .app-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Khung hiển thị bản đồ 3D */
+        .map-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            aspect-ratio: 1 / 1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 80px rgba(234, 179, 8, 0.15);
+            background: #1a162b;
+        }
+
+        .map-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            user-select: none;
+        }
+
+        /* Điểm tương tác (Hotspots) đè chính xác lên từng tòa nhà */
+        .hotspot {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* Vòng tròn nhấp nháy phát sáng */
+        .hotspot-pulse {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid rgba(255, 215, 0, 0.8);
+            background: rgba(255, 215, 0, 0.15);
+            animation: pulse 2s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.9; }
+            70% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+            100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+        }
+
+        .hotspot-card {
+            background: rgba(20, 15, 35, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.5);
+            padding: 10px 18px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255, 200, 100, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hotspot-card .icon {
+            font-size: 20px;
+        }
+
+        .hotspot-card .label {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .hotspot-card .sub-label {
+            font-size: 11px;
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .hotspot:hover {
+            transform: translate(-50%, -58%) scale(1.08);
+            z-index: 20;
+        }
+
+        .hotspot:hover .hotspot-card {
+            background: rgba(35, 25, 60, 0.95);
+            border-color: #fbbf24;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.7), 0 0 25px rgba(251, 191, 36, 0.6);
+        }
+
+        /* Tọa độ đặt nút bấm đè chính xác lên hình 3D */
+        #spot-cafe      { top: 28%; left: 26%; }
+        #spot-library   { top: 31%; left: 76%; }
+        #spot-tearoom   { top: 62%; left: 24%; }
+        #spot-workspace { top: 61%; left: 76%; }
+        #spot-home      { top: 48%; left: 50%; }
+
+        /* Modal Bảng chọn chủ đề khi click */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 8, 20, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #1e192e;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 24px;
+            width: 90%;
+            max-width: 520px;
+            padding: 28px;
+            position: relative;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.8), 0 0 40px rgba(251, 191, 36, 0.15);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #aaa;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-btn:hover { background: rgba(255, 255, 255, 0.2); color: #fff; }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header .badge-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        .modal-title-text h2 { font-size: 20px; font-weight: 800; color: #fff; }
+        .modal-title-text p { font-size: 13px; color: #fbbf24; font-weight: 600; }
+
+        .topics-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .topic-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .topic-item:hover {
+            background: rgba(251, 191, 36, 0.12);
+            border-color: rgba(251, 191, 36, 0.4);
+            transform: translateX(4px);
+        }
+
+        .topic-info h4 { font-size: 14px; font-weight: 700; color: #f3f4f6; }
+        .topic-info span { font-size: 12px; color: #9ca3af; }
+
+        .start-btn {
+            background: #fbbf24;
+            color: #110e1b;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .topic-item:hover .start-btn { background: #f59e0b; }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="map-wrapper">
+            <!-- Đổi tên file ảnh đúng với file ảnh bạn tải về -->
+            <img src="image.png" alt="English Learning Map 3D" class="map-image">
+
+            <!-- Spot 1: Speaking -->
+            <div class="hotspot" id="spot-cafe" onclick="openModal('speaking')">
+                <div class="hotspot-pulse"></div>
+                <div class="hotspot-card">
+                    <span class="icon">☕</span>
+                    <div>
+                        <div class="label">CAFÉ</div>
+                        <div class="sub-label">Speaking Skill</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spot 2: Reading -->
+            <div class="hotspot" id="spot-library" onclick="openModal('reading')">
+                <div class="hotspot-pulse"></div>
+                <div class="hotspot-card">
+                    <span class="icon">📚</span>
+                    <div>
+                        <div class="label">LIBRARY</div>
+                        <div class="sub-label">Reading Skill</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spot 3: Listening -->
+            <div class="hotspot" id="spot-tearoom" onclick="openModal('listening')">
+                <div class="hotspot-pulse"></div>
+                <div class="hotspot-card">
+                    <span class="icon">🍵</span>
+                    <div>
+                        <div class="label">TEA ROOM</div>
+                        <div class="sub-label">Listening Skill</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spot 4: Writing -->
+            <div class="hotspot" id="spot-workspace" onclick="openModal('writing')">
+                <div class="hotspot-pulse"></div>
+                <div class="hotspot-card">
+                    <span class="icon">💻</span>
+                    <div>
+                        <div class="label">WORKING SPACE</div>
+                        <div class="sub-label">Writing Skill</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spot 5: Home -->
+            <div class="hotspot" id="spot-home" onclick="openModal('home')">
+                <div class="hotspot-pulse" style="border-color:#60a5fa;"></div>
+                <div class="hotspot-card" style="border-color:#60a5fa;">
+                    <span class="icon">🏡</span>
+                    <div>
+                        <div class="label">YOUR HOME</div>
+                        <div class="sub-label" style="color:#93c5fd;">Final Level</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal hiển thị danh sách chủ đề -->
+    <div class="modal-overlay" id="modal-overlay" onclick="closeModalOnOuter(event)">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <div class="modal-header">
+                <div class="badge-icon" id="modal-icon">☕</div>
+                <div class="modal-title-text">
+                    <h2 id="modal-title">Speaking Skill</h2>
+                    <p id="modal-subtitle">Chủ đề luyện nói tại Quán Cà Phê</p>
+                </div>
+            </div>
+            <div class="topics-list" id="topics-list"></div>
+        </div>
+    </div>
+
+    <script>
+        const skillData = {
+            speaking: {
+                title: "Speaking Skill (Café)",
+                subtitle: "Luyện nói qua các tình huống giao tiếp thực tế",
+                icon: "☕",
+                topics: [
+                    { title: "Ordering Coffee & Drinks", detail: "15 mẫu câu order chuẩn bản ngữ", lessons: "5 Bài" },
+                    { title: "Small Talk with Strangers", detail: "Bắt chuyện tự nhiên nơi công cộng", lessons: "8 Bài" },
+                    { title: "Expressing Opinions", detail: "Nêu quan điểm về các chủ đề đời sống", lessons: "6 Bài" }
+                ]
+            },
+            reading: {
+                title: "Reading Skill (Library)",
+                subtitle: "Nâng cao vốn từ vựng & đọc hiểu chuyên sâu",
+                icon: "📚",
+                topics: [
+                    { title: "Short Stories & Novels", detail: "Đọc truyện ngắn thư giãn & học ngữ cảnh", lessons: "12 Bài" },
+                    { title: "Tech & Science Articles", detail: "Bài đọc tin tức khoa học & công nghệ", lessons: "8 Bài" },
+                    { title: "IELTS/TOEFL Academic Passages", detail: "Luyện đọc hiểu dạng bài thi", lessons: "10 Bài" }
+                ]
+            },
+            listening: {
+                title: "Listening Skill (Tea Room)",
+                subtitle: "Luyện nghe thư giãn & chép chính tả",
+                icon: "🍵",
+                topics: [
+                    { title: "Acoustic Podcasts", detail: "Nghe Podcast phát âm chuẩn Anh - Mỹ", lessons: "15 Tập" },
+                    { title: "Music & Lyrics Decoding", detail: "Phân tích lời bài hát Tiếng Anh hay", lessons: "20 Bài" }
+                ]
+            },
+            writing: {
+                title: "Writing Skill (Working Space)",
+                subtitle: "Rèn luyện kỹ năng viết Email & Essay",
+                icon: "💻",
+                topics: [
+                    { title: "Business Email Writing", detail: "Viết Email công việc chuyên nghiệp", lessons: "7 Bài" },
+                    { title: "Essay & Paragraph Building", detail: "Viết đoạn văn lập luận chặt chẽ", lessons: "5 Bài" }
+                ]
+            },
+            home: {
+                title: "Your Home (Final Level)",
+                subtitle: "Theo dõi tiến độ & Đánh giá năng lực",
+                icon: "🏡",
+                topics: [
+                    { title: "Proficiency Dashboard", detail: "Tổng số giờ học & cấp độ hiện tại", lessons: "Level B2" },
+                    { title: "Final Mastery Test", detail: "Bài kiểm tra tổng hợp 4 kỹ năng", lessons: "100 Câu" }
+                ]
+            }
+        };
+
+        function openModal(skillKey) {
+            const data = skillData[skillKey];
+            if (!data) return;
+            document.getElementById('modal-icon').innerText = data.icon;
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-subtitle').innerText = data.subtitle;
+
+            const listContainer = document.getElementById('topics-list');
+            listContainer.innerHTML = '';
+            data.topics.forEach(topic => {
+                const item = document.createElement('div');
+                item.className = 'topic-item';
+                item.innerHTML = `
+                    <div class="topic-info">
+                        <h4>${topic.title}</h4>
+                        <span>${topic.detail} • ${topic.lessons}</span>
+                    </div>
+                    <button class="start-btn">Học ngay</button>
+                `;
+                listContainer.appendChild(item);
+            });
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+        }
+
+        function closeModalOnOuter(e) {
+            if (e.target.id === 'modal-overlay') closeModal();
+        }
+    </script>
+</body>
+</html>
